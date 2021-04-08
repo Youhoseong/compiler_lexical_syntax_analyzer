@@ -1,2 +1,2 @@
-# _syntax_analyzer
-Java syntax analyzer for compiler, team project of CSE Compiler Class
+# _lexical_analyzer
+Java lexical analyzer for compiler, team project of CSE Compiler Class
