@@ -19,8 +19,20 @@
 
 
 # Using Process
-1. Need "code.txt" file as a input descripting Java Codes.
-2. Execute.
+1. git clone
+```
+$ git clone https://github.com/Youhoseong/_lexical_analyzer.git
+```
+2. Need "code.txt" file as a input descriptinga any Java Codes.
+
+```java
+public class Example {
+   public void main(String args[]) {
+       
+   }
+}
+```
+3. Execute.
 
 # Code idea 
 
