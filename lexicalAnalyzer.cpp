@@ -1,18 +1,20 @@
 /**
- * This the example lexical analyzer code in pages 173 - 177 of the
- * textbook,
  *
- * Sebesta, R. W. (2012). Concepts of Programming Languages.
- * Pearson, 10th edition.
+ Lexical Analyzer 
  *
- */
+ 2021 Complier Class,
+ Author: Hoseong You, SungKyu Cho
+ *
+ **/
 
- /* front.c - a lexical analyzer system for simple arithmetic expressions */
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
+ using namespace std;
+
 
 /* Global Variable */
 int nextToken;
@@ -42,6 +44,8 @@ int lex();
 
 /* Token codes */
 #define INT_LIT 10
+#define CHAR_LIT 29
+#define STR_LIT 30
 #define UNALLOWED -999
 
 #define IDENT 11
@@ -57,12 +61,16 @@ int lex();
 #define RIGHT_PAREN 26
 
 #define COMPARE_OP 27
+#define QUOTE 28
+#define BLANK 31
+
 
 /******************************************/
 /* main driver                            */
 /******************************************/
 int main()
 {
+
     
     /* Open the input data file and process its contents */
     if ((in_fp = fopen("code.txt", "r")) == NULL) {
@@ -96,6 +104,11 @@ int lookup(char ch) {
         addChar();
         nextToken = RIGHT_PAREN;
         break;
+    case '\'':
+        addChar();
+        nextToken = QUOTE;
+        break;  
+
     case '+':
         addChar();
         nextToken = ADD_OP;
@@ -144,6 +157,7 @@ int lookup(char ch) {
     return nextToken;
 }
 
+
 /**************************************************/
 /* addChar - a function to add nextChar to lexeme */
 /**************************************************/
@@ -167,6 +181,8 @@ void getChar() {
             charClass = LETTER;
         else if (isdigit(nextChar))
             charClass = DIGIT;
+        else if(nextChar == '\'' || nextChar == '\"') 
+            charClass = QUOTE;
         else
             charClass = UNKNOWN;
     }
@@ -175,13 +191,19 @@ void getChar() {
     }
 }
 
-/*****************************************************/
-/* getNonBlank - a function to call getChar until it
-           returns a non-whitespace character        */
-           /*****************************************************/
 void getNonBlank() {
     while (isspace(nextChar))
         getChar();
+}
+
+// blank는 토큰 부여를 해야 할 상황이 있고, 하지 않아야 할 상황이 있음, 그래서 판단하는 함수를 따로 생성한다.
+void isSpaceBarBlank() {
+    if (nextChar != EOF) {
+        if (nextChar ==' ')
+            charClass = BLANK;
+
+    }
+    
 }
 
 /*****************************************************/
@@ -196,17 +218,17 @@ int lex() {
         /* Parse identifiers */
     case LETTER:
         addChar();
-
         getChar();
         
         while (charClass == LETTER || charClass == DIGIT) {
             addChar();
             getChar();
+         
         }
 
         nextToken = IDENT;
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 7; i++) { //키워드 length로 수정할 것
             if (strcmp(lexeme, Keyword_ary[i]) == 0) {
                 nextToken = KEYWORD;
                 break;
@@ -221,8 +243,6 @@ int lex() {
         addChar();
         getChar();
 
-      
-      
         while (charClass == DIGIT) {     
             addChar();
             getChar();
@@ -233,23 +253,76 @@ int lex() {
         else 
             nextToken = INT_LIT;
         
-
-        
         break;
+    case QUOTE: // 딱 3번의 get만 하면됨.
+        addChar();
+        getChar();
 
-        /* Parentheses and operators */
+        //getchar 하고나면 nextChar와 charClass가 변경됨.
+        isSpaceBarBlank();
+        //스페이바에 의한 공백일 때 charClass가 BLANK로 변함.
+
+        //Case1 : 처음 '가 들어오고 두번째 input이 '일때.
+        if(lexeme[0] == '\'') {
+
+            if(nextChar == '\'') {
+                addChar();
+                getChar(); // 다음 input으로 skip
+                break;
+            }
+            else { // Case2: 처음 '가 들어오고 바로 다음 문자가 '가 아닐때
+                if (charClass == DIGIT || charClass == LETTER || charClass == BLANK ) {
+                    addChar();
+                    getChar();
+
+                    if(nextChar == '\'') {
+                        addChar();
+                        nextToken = CHAR_LIT;
+                        getChar(); // 다음 input으로 skip
+                        break;
+                    }
+                    else {
+                        addChar();
+                        nextToken = UNALLOWED;
+                        cout << "Did you skip \' ? ⇩" << '\n';
+                        getChar(); // 다음 input으로 skip
+                        break;
+                    }
+                }
+
+            } 
+        }
+        else { // 큰 따옴표, string error를 어떻게 탐지? => 큰 따옴표 짝이 안맞을 때. 아직 해결x
+            while (charClass == LETTER || charClass == DIGIT || charClass == BLANK) {
+                addChar();
+                getChar();
+                isSpaceBarBlank();
+
+                if (nextChar=='\"') {
+                    addChar();
+                    nextToken = STR_LIT;
+                    getChar();
+                    
+                    break;
+                }
+         
+            }          
+        }
+        break;
     case UNKNOWN:
 
         previousToken = nextToken; 
 
         lookup(nextChar);
         getChar();
-
+      
         if(previousToken == INT_LIT && nextToken== SUB_OP) {
             if (nextChar == DIGIT)
                 break;
 
         }
+     
+        
         else {
             if(lexeme[0] == '-') {
                 while (charClass == DIGIT) {     
@@ -260,6 +333,7 @@ int lex() {
                     nextToken = INT_LIT;
             }
         }
+    
 
         break;
 
