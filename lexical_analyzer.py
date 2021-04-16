@@ -54,34 +54,44 @@ def start_analyze(input, cs):
         for keylist in keyList:
             if input in keylist:
                 flag=1
-                if currentToken in ["CHAR", "STR"]:
-                    if input not in ["'", "\""]:
-                        lexeme.append(input)
-                else:
-                    lexeme.append(input)
+                lexeme.append(input)
                 currentState = token_dic[currentState][keylist]
             
-        if flag == 0 and currentState in token_dic["FINAL_STATE"]:
-            str = ""
-            if currentToken == "ID":
-                keyword_list = table["VTYPE"] + table["KEYWORD"]
-                if ''.join(lexeme) in keyword_list[:4]:
-                    str = ["VTYPE", ''.join(lexeme)]
-                elif ''.join(lexeme) in keyword_list[4:]:
-                    str = [''.join(lexeme).upper(), ''.join(lexeme)]
-                else:
-                    str = [currentToken, ''.join(lexeme)]
+        if flag == 0 :
+            if currentState in token_dic["FINAL_STATE"]:
+                str = ""
+                if currentToken == "ID":
+                    keyword_list = table["VTYPE"] + table["KEYWORD"]
+                    if ''.join(lexeme) in keyword_list[:4]:
+                        str = ["VTYPE", ''.join(lexeme)]
+                    elif ''.join(lexeme) in keyword_list[4:]:
+                        str = [''.join(lexeme).upper(), ''.join(lexeme)]
+                    else:
+                        str = [currentToken, ''.join(lexeme)]
+                        
+                elif currentToken in ["CHAR", "STR"]:
+                    temp_lexeme = ''.join(lexeme)
+                    str = [currentToken, temp_lexeme[1:-1]]
             else:
-                str = [currentToken, ''.join(lexeme)]
+                str = ["Undefined", ''.join(lexeme)]
+
 
             lexical_token_list.append(str)
             lexeme.clear()
- 
+
             return 0
  
     elif currentToken in ["UNDEFINED"]:
-        lexical_token_list.append([currentToken, ''.join(lexeme)])
+        checkinput = string.digits + string.whitespace + string.ascii_letters
+        if input not in checkinput:
+            print("여기")
+            lexeme.append(input)
+            lexical_token_list.append([currentToken, ''.join(lexeme)])
+            print("undefined lexeme check:", lexeme)
+            lexeme.clear()
         return 0
+
+   
     elif currentToken in ["WHITE_SPACE"]:
         return 0
     else:
@@ -91,9 +101,11 @@ def start_analyze(input, cs):
             return 1
         else:
             if currentState in token_dic["FINAL_STATE"]:
-       
                 lexical_token_list.append([currentToken, ''.join(lexeme)])
                 lexeme.clear()
+            else:
+                lexical_token_list.append(["undefined2", ''.join(lexeme)])
+            
    
             return 0
 
@@ -123,23 +135,30 @@ lexical_token_list = []
 
 fileInput = open('codein.txt', 'r')
 fileWrite = open("codeout.txt", 'w')
-input = fileInput.read() + " "
+input = fileInput.read() + "$"
 
 currentToken = giveTokenToSingleInput(input[0])
+print("토큰 업데이트:", currentToken)
 currentState = 0
 status = 1
 
 for i in range(0,len(input)):
-
+    print(i)
     if status != 0:
         status = start_analyze(input[i], currentState)
+        print("lexeme:",lexeme)
 
     if status == 0:
         currentToken = giveTokenToSingleInput(input[i]) # 토큰 업데이트
         currentState = 0 
-        status = start_analyze(input[i], currentState)
-        status = 1 # 토큰 업데이트 안해도 되는 상황 
 
+        if currentToken is not "UNDEFINED":
+            status = start_analyze(input[i], currentState)
+
+        status = 1 # 토큰 업데이트 안해도 되는 상황 
+        print("토큰 업데이트:", currentToken)
+    
+  
 for i in lexical_token_list:
     fileWrite.write(str(i))
     fileWrite.write('\n')
