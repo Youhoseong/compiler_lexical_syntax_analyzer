@@ -15,26 +15,53 @@
 1. Make Regular Expression for each token
 2. Design Non-deterministic Finite Automata(NFA)
 3. Convert NFA to DFA
-4. Implement using C++ Language
+4. Implement using Python
 
 
 # Using Process
-1. git clone
+1. clone this repository
 ```
 $ git clone https://github.com/Youhoseong/_lexical_analyzer.git
 ```
-2. Need "code.txt" file as a input descriptinga any Java Codes.
+2. Need "codein.java" file as a input descripting any Java Codes.
 
 ```java
-public class Example {
-   public void main(String args[]) {
-       
-   }
+public class Codein {
+    public static void main(String args[]) {
+        char a = '1';
+        char b = 'y';
+        int x = a + b;
+        int[] array = {56, 14};
+        boolean bo = false;
+        String str = "this is string";
+
+        int _testvar123 = 0;
+
+        if(x >= 12) {
+            b = '2';
+        }
+        else if(x != 15){
+            b = '3';
+        }
+        else {
+            b = a / 3;
+        }
+
+        while(true) {
+
+        }
+    
+        return 0;
+    }
+
+
 }
 ```
-3. Execute.
+3. On your terminal, execute.
 
-# Code idea 
+```
+python lexical_analyzer.py codein.java 
+```
 
 
 # License
