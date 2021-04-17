@@ -7,7 +7,8 @@ class TableofDFA:
         DIGIT_WITHOUT_ZERO = string.digits[1:]
         DIGIT = string.digits
         LETTER = string.ascii_letters
-        SPACE = string.whitespace
+        SPACE = " "
+        TAP_SPACE = '\t'
 
         self.table = {
 
@@ -20,35 +21,7 @@ class TableofDFA:
                 },
                 "FINAL_STATE":[1]
             },
-            "Variable Type": {
-                0: {
-                    "i": 1,
-                    "c": 3, 
-                    "b": 6, 
-                    "s": 12
-                },
-                1: {"n": 2},
-                2: {"t": 17},
-                
-                3: {"h": 4},
-                4: {"a": 5},
-                5: {"r": 17},
-
-                6: {"o": 7},
-                7: {"o": 8},
-                8: {"l": 9},
-                9: {"e": 10},
-                10:{"a": 11},
-                11:{"n": 12},
-
-                12: {"t": 13},
-                13: {"r": 14},
-                14: {"i": 15},
-                15: {"n": 16},
-                16: {"g": 17},
-                17: {},
-                "FINAL_STATE" : [17]
-            },
+          
             "CHAR": {
                 0: {
                     "\'": 1
@@ -77,7 +50,8 @@ class TableofDFA:
 
                     SPACE: 2,
                     DIGIT: 2,
-                    LETTER: 2
+                    LETTER: 2,
+                    TAP_SPACE: 2 
 
                 },
                 2: {
@@ -204,7 +178,7 @@ class TableofDFA:
             "VTYPE": [
                 "int",
                 "char",
-                'string',
+                'String',
                 'boolean',
             ],
             
