@@ -1,0 +1,14 @@
+<CLASS, class, 1>
+<ID, CodeIn, 1>
+<LBRACE, {, 1>
+<VTYPE, char, 2>
+<ID, a, 2>
+<OP, =, 2>
+<CHAR, 1, 2>
+<SEMI, ;, 2>
+<VTYPE, char, 3>
+<ID, b, 3>
+<OP, =, 3>
+<CHAR, y, 3>
+<SEMI, ;, 3>
+<RBRACE, }, 4>

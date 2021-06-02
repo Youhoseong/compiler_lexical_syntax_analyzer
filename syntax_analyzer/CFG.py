@@ -4,7 +4,7 @@ class CFG:
 
     }
 
-    tokenConveter = {
+    tokenConverter = {
 
     }
 
@@ -29,7 +29,7 @@ class CFG:
                 "VTYPE ASSIGN SEMI": "VDECL"
             },
             6: {
-                "ID ASSIGN RHS": "ASSIGN"
+                "ID assign RHS": "ASSIGN"
             },
             7: {
                 "EXPR": "RHS"
@@ -112,13 +112,13 @@ class CFG:
                 "BOOLSTR": "A"
             },
             32: {
-                "ELESE LBRACE BLOCK RBRACE": "ELSE"
+                "else LBRACE BLOCK RBRACE": "ELSE"
             },
             33: {
                 '': "ELSE"
             },
             34: {
-                "RETURN RHS SEMI": "RETURN"
+                "return RHS SEMI": "RETURN"
             },
             35: {
                 "CLASS ID LBRACE ODECL RBRACE": "CDECL"
@@ -135,6 +135,27 @@ class CFG:
 
         }
 
-        self.tokenConveter = {
+        self.tokenConverter = {
+            "FALSE": "BOOLSTR",
+            "TRUE": "BOOLSTR",
+            "STR": "LITERAL",
+            "INTEGER": "NUM",
+            "CHAR": "CHARACTER",
 
+            "+": "ADDSUB",
+            "-": "ADDSUB",
+
+            "*": "MULDIV",
+            "/": "MULDIV",
+
+            "<": "COMP",
+            ">":  "COMP",
+            "==": "COMP",
+            ">=": "COMP",
+            "<=": "COMP",
+            "!=": "COMP",
+
+            "=": "assign",
+            "ELSE": "else",
+            "RETURN": "return"
         }
