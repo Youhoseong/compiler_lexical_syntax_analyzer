@@ -11,125 +11,128 @@ class CFG:
     def __init__(self):
         self.cfg = {
             0: {
-                "VDECL CODE": "CODE"
+                "CODE": "START"
             },
             1: {
-                "FDECL CODE": "CODE"
+                "VDECL CODE": "CODE"
             },
             2: {
-                "CDECL CODE": "CODE"
+                "FDECL CODE": "CODE"
             },
             3: {
-                '': "CODE",
+                "CDECL CODE": "CODE"
             },
             4: {
-                "VTYPE ID SEMI": "VDECL"
+                '': "CODE",
             },
             5: {
-                "VTYPE ASSIGN SEMI": "VDECL"
+                "VTYPE ID SEMI": "VDECL"
             },
             6: {
-                "ID assign RHS": "ASSIGN"
+                "VTYPE ASSIGN SEMI": "VDECL"
             },
             7: {
-                "EXPR": "RHS"
+                "ID assign RHS": "ASSIGN"
             },
             8: {
-                "LITERAL": "RHS"
+                "EXPR": "RHS"
             },
             9: {
-                "CHARACTER": "RHS"
+                "LITERAL": "RHS"
             },
             10: {
-                "BOOLSTR": "RHS"
+                "CHARACTER": "RHS"
             },
             11: {
+                "BOOLSTR": "RHS"
+            },
+            12: {
                 "T ADDSUB EXPR": "EXPR"
             },
 
-            12: {
+            13: {
                 "T": "EXPR"
             },
-            13: {
+            14: {
                 "F MULDIV T": "T"
             },
-            14: {
+            15: {
                 "F": "T"
             },
-            15: {
+            16: {
                 "LPAREN EXPR RPAREN": "F"
             },
-            16: {
+            17: {
                 "ID": "F"
             },
-            17: {
+            18: {
                 "NUM": "F"
             },
-            18: {
+            19: {
                 "VTYPE ID LPAREN ARG RPAREN LBRACE BLOCK RETURN RBRACE": "FDECL"
             },
-            19: {
+            20: {
                 "VTYPE ID MOREARGS": "ARG"
             },
-            20: {
+            21: {
                 '': "ARG"
             },
-            21: {
+            22: {
                 "COMMA VTYPE ID MOREARGS": "MOREARGS"
             },
 
-            22: {
+            23: {
                 '': "MOREARGS"
             },
-            23: {
+            24: {
                 "STMT BLOCK": "BLOCK"
             },
-            24: {
+            25: {
                 '': "BLOCK"
             },
-            25: {
+            26: {
                 "VDECL": "STMT"
             },
-            26: {
+            27: {
                 "ASSIGN SEMI": "STMT"
             },
-            27: {
+            28: {
                 "IF LPAREN COND RPAREN LBRACE BLOCK RBRACE ELSE": "STMT"
             },
 
-            28: {
+            29: {
                 "WHILE LPAREN COND RPAREN LBRACE BLOCK RBRACE": "STMT"
             },
 
-            29: {
+            30: {
                 "COND COMP A": "COND"
             },
 
-            30: {
+            31: {
                 "BOOLSTR": "COND"
             },
-            31: {
+            32: {
                 "BOOLSTR": "A"
             },
-            32: {
+            33: {
                 "else LBRACE BLOCK RBRACE": "ELSE"
             },
-            33: {
+            34: {
                 '': "ELSE"
             },
-            34: {
+            35: {
                 "return RHS SEMI": "RETURN"
             },
-            35: {
+            36: {
                 "CLASS ID LBRACE ODECL RBRACE": "CDECL"
             },
-            36: {
+            37: {
                 "VDECL ODECL": "ODECL"
             },
-            37: {
+            38: {
                 "FDECL ODECL": "ODECL"
             },
-            38: {
+            39: {
                 '': "ODECL"
             }
 

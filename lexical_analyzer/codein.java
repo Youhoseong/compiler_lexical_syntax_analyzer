@@ -1,4 +1,10 @@
 class CodeIn {
-    char a = '1';
-    char b = 'y';
+    
+    int SILHUM (int SG) {
+        if ( false < true ) {
+            a=b;
+        }
+
+        return 5;
+    }
 }

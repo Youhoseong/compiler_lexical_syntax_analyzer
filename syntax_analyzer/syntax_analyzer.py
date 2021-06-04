@@ -8,9 +8,6 @@ import slrtable
 #input = fileinput.read()
 # print(input)
 
-tempInput = "VTYPE ID SEMI"
-
-
 fileInput = open("codeout.txt", 'r')
 inputList = fileInput.read().split('\n')
 
@@ -55,6 +52,7 @@ stack.append(0)
 
 
 isError = False
+
 while True:
     print("현재input:", currentInput)
     print("currentInputCount:", currentInputCount)
@@ -64,7 +62,6 @@ while True:
     print()
 
     if stack[-1] not in list(actionTable[currentInput].keys()):
-
         isError = True
         break
     else:
@@ -103,23 +100,40 @@ while True:
 
 
 print("#######################################")
-if isError == False:
-    print("ACCEPT")
-else:
-    if currentInput == "$":
-        currentInputCount -= 1
-        print("line number:", lineInfoList[currentInputCount])
+print()
+# if ( false
+# {
 
-        if tokenValueList[currentInputCount] != ";":
-            print("There is no semicolon")
+# }
+
+
+if isError == False:
+    print("# ACCEPT, There is No Error.")
+else:
+    print("# REJECT, There is Error.")
+    if currentInput == "$":
+        lineInfoList.append(int(lineInfoList[currentInputCount-1])+1)
+
+    if lineInfoList[currentInputCount-1] != lineInfoList[currentInputCount]:
+        currentInputCount -= 1
+        print("# Reject from Line Number:",
+              lineInfoList[currentInputCount-1])
+        print("# Last token of ", end='')
+        print("[   ", end='')
+        for i in range(len(lineInfoList)):
+            if lineInfoList[i] == lineInfoList[currentInputCount]:
+                print(tokenValueList[i], end=' ')
+        print("  ] is missing.")
+
     else:
-        print("# Reject from Line Number:", lineInfoList[currentInputCount])
+        print("# Reject from Line Number:",
+              lineInfoList[currentInputCount])
         print("# [   ", tokenValueList[currentInputCount], "   ] of ", end='')
         print("[   ", end='')
         for i in range(len(lineInfoList)):
             if lineInfoList[i] == lineInfoList[currentInputCount]:
                 print(tokenValueList[i], end=' ')
 
-        print("  ] is strange")
-        print()
+        print("  ] is not expected.")
+print()
 print("#######################################")
