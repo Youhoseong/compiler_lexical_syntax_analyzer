@@ -14,7 +14,9 @@
 4. Implement using Python
 
 # Design Process for syntax analyzer
-
+1. Make CFG. (It should not be ambiguous.)
+2. Make SLR-Table. 
+3. Implement using Python
 
 # Using Process for lexical analyzer
 1. clone this repository
