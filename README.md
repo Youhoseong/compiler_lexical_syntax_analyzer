@@ -25,7 +25,7 @@
 2. Make SLR-Table. 
 3. Implement using Python
 
-# Using Process for lexical analyzer
+# Using Process
 1. clone this repository
 ```
 $ git clone https://github.com/Youhoseong/_lexical_analyzer.git
