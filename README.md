@@ -3,8 +3,15 @@
 - Java lexical analyzer and syntax analyzer with Python Code
 
 # Author
-- Hoseong You, CAU
-- Sungkyu Cho, CAU
+<table>
+  <tr>
+     <td align="center"><a href="https://github.com/Youhoseong"><img src="https://avatars.githubusercontent.com/u/33655186?v=4" width="150px;" alt=""/><br/><sub><b>유호성</b></sub></a></td>
+    <td align="center"><a href="https://github.com/quadbeats"><img src="https://avatars.githubusercontent.com/u/33650185?v=4" width="150px;" alt=""/><br/><sub><b>조성규</b></sub></a></td>
+
+
+
+  </tr>
+</table>
   
 # Design Process for lexical analyzer
 
